@@ -13,18 +13,10 @@ io.on('connection', (client) => {
 
     //Listenning the client
     //The callback is received from Client
-    client.on('sendMessage', (data, callback) => {
-        console.log(data);
-        client.broadcast.emit('sendMessage', data)
-            // if (message.user) {
-            //     callback({
-            //         res: 'All went well'
-            //     });
-            // } else {
-            //     callback({
-            //         res: 'Everything went wrong'
-            //     });
-            // }
+    client.on('nextTicket', (data, callback) => {
+        let ticket = ticketController.next();
+        console.log(ticket);
+        callback(ticket);
     });
 
     //Function "emit" is for send information only to Client
