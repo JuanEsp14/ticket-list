@@ -21,7 +21,11 @@ class TicketController {
             today: this.today
         });
 
-        return `Ticket ${this.last}`
+        return `Ticket ${this.last}`;
+    }
+
+    getLastTicket() {
+        return `Ticket ${this.last}`;
     }
 
     saveData(jsonData) {

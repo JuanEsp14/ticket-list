@@ -20,9 +20,8 @@ io.on('connection', (client) => {
     });
 
     //Function "emit" is for send information only to Client
-    client.emit('sendMessage', {
-        user: 'Admin',
-        message: 'Hello to this app'
+    client.emit('actualState', {
+        ticket: ticketController.getLastTicket()
     });
 
 });
