@@ -2,19 +2,29 @@ const fs = require('fs');
 
 class TicketController {
     constructor() {
-        this.last = 0;
-        this.today = new Date().getDate();
         let data = require('../data/data.json');
         if (data.today != this.today) {
-            this.saveNewData();
+            this.saveData({
+                last: 0,
+                today: new Date().getDate()
+            });
+            data = require('../data/data.json');
         }
+        this.today = data.today;
+        this.last = data.last;
     }
 
-    saveNewData() {
-        let jsonData = {
+    next() {
+        this.last++;
+        this.saveData({
             last: this.last,
             today: this.today
-        };
+        });
+
+        return `Ticket ${this.last}`
+    }
+
+    saveData(jsonData) {
         let jsonDataString = JSON.stringify(jsonData);
         fs.writeFileSync('./server/data/data.json', jsonDataString);
     }
