@@ -1,4 +1,6 @@
 const { io } = require('../server');
+const { TicketController } = require('../classes/ticket.controller');
+const ticketController = new TicketController();
 
 //Inicialitized communication with frontend
 //The client parameter contains information about the connection established
