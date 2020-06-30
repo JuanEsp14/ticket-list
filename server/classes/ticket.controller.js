@@ -14,13 +14,15 @@ class TicketController {
             this.saveData({
                 last: 0,
                 today: new Date().getDate(),
-                tickets: []
+                tickets: [],
+                last4Tickets: []
             });
             data = require('../data/data.json');
         }
         this.today = data.today;
         this.last = data.last;
         this.tickets = data.tickets;
+        this.last4Tickets = data.last4Tickets;
     }
 
     next() {
@@ -30,7 +32,8 @@ class TicketController {
         this.saveData({
             last: this.last,
             today: this.today,
-            tickets: this.tickets
+            tickets: this.tickets,
+            last4Tickets: this.last4Tickets
         });
 
         return `Ticket ${this.last}`;
@@ -39,6 +42,31 @@ class TicketController {
     getLastTicket() {
         return `Ticket ${this.last}`;
     }
+
+    attendTicket(desk) {
+        if (this.tickets.length === 0) {
+            return 'No tickets';
+        }
+        let ticketNumber = this.tickets[0].number;
+        this.tickets.shift();
+
+        let attendTicket = new Ticket(ticketNumber, desk);
+        this.last4Tickets.unshift(attendTicket);
+
+        if (this.last4Tickets.length > 4) {
+            this.last4Tickets.splice(-1, 1);
+        }
+
+        this.saveData({
+            last: this.last,
+            today: this.today,
+            tickets: this.tickets,
+            last4Tickets: this.last4Tickets
+        });
+
+        return attendTicket;
+    }
+
 
     saveData(jsonData) {
         let jsonDataString = JSON.stringify(jsonData);
