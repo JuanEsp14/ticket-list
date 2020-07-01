@@ -14,12 +14,16 @@ var lblTickets = [lblTicket1, lblTicket2, lblTicket3, lblTicket4];
 var lblDesks = [lblDesk1, lblDesk2, lblDesk3, lblDesk4];
 
 socket.on('actualState', function(data) {
-    console.log(data);
+    render(data.last4);
+});
+
+socket.on('last4', function(data) {
+    console.log(data.last4);
     render(data.last4);
 });
 
 function render(last4) {
-    for (var i = 0; i <= last4.length; i++) {
+    for (var i = 0; i < last4.length; i++) {
         lblTickets[i].text('Ticket ' + last4[i].number);
         lblDesks[i].text('Desk ' + last4[i].desk);
     }
