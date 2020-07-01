@@ -42,6 +42,9 @@ class TicketController {
     getLastTicket() {
         return `Ticket ${this.last}`;
     }
+    getLast4() {
+        return this.last4Tickets;
+    }
 
     attendTicket(desk) {
         if (this.tickets.length === 0) {
